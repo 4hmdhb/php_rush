@@ -14,16 +14,18 @@
 		{
 			$order['client'] = $_SESSION['loggued_on_user'];
 			$order['order'] = $_SESSION['basket'];
-			$order['time'] = time();
+			$order['time'] = date('Y/m/d/h/i/s');
+			$order['id'] = hash("whirlpool", $order['client'].$order['time']);
+			$order['status'] = 'processing';
 			if (file_exists('auth/private/orders'))
 				$save_arr = unserialize(file_get_contents('auth/private/orders'));
 			$save_arr[] = $order;
 			file_put_contents('auth/private/orders', serialize($save_arr));
 			echo "Order Placed";
 			$_SESSION['basket'] = array();
+			header("location: index.php");
 		}
 	}
-	print_r($_SESSION['basket']);
 ?>
 <!DOCTYPE html>
 <html>

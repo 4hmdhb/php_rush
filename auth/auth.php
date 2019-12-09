@@ -40,7 +40,7 @@
 		$contents = unserialize(file_get_contents("private/passwd"));
 		if (!$contents)
 			return false;
-		$new_content;
+		$new_content = array();
 		$i = 0;
 		foreach ($contents as $user) {
 			if ($user["login"] !== $login)
@@ -48,5 +48,22 @@
 		}
 		file_put_contents("private/passwd", serialize($new_content));
 		return true;
+	}
+	function completed($id)
+	{
+		if (!$id || !file_exists("private/orders"))
+			return false;
+		$save_arr = unserialize(file_get_contents('private/orders'));
+		$new_array = array();
+		$i = 0;
+		if (!$save_arr)
+			return false;
+		foreach ($save_arr as $order) {
+			if (strcmp($order['id'], $id) === 0)
+				$order['status'] = 'completed';
+			$new_array[$i++] = $order;
+		}
+		file_put_contents("private/orders", serialize($new_array));
+		return false;
 	}
 ?>
