@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	if ($_SESSION['loggued_on_user'] !== 'admin')
+		header("location: login.php");
 	include("auth.php");
 	if (isset($_POST['delete']))
 	{
@@ -78,9 +80,12 @@
 				if (!$users)
 					return ;
 				foreach ($users as $elem) {
-					echo "<tr><th>".$elem['login']."</th>";
 					$login = $elem['login'];
-					echo '<th><form method="POST" action=""><button type="submit" name="delete" value="'.$login.'">Delete</button></form></th></tr>';
+					if (strcmp($login, 'admin'))
+					{
+						echo "<tr><th>".$login."</th>";
+						echo '<th><form method="POST" action=""><button type="submit" name="delete" value="'.$login.'">Delete</button></form></th></tr>';
+					}
 				}
 			}
 		?>
