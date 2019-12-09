@@ -14,7 +14,7 @@
 		{
 			$order['client'] = $_SESSION['loggued_on_user'];
 			$order['order'] = $_SESSION['basket'];
-			$order['time'] = date('Y/m/d/h/i/s');
+			$order['time'] = date('Y/m/d/h:i:s');
 			$order['id'] = hash("whirlpool", $order['client'].$order['time']);
 			$order['status'] = 'processing';
 			if (file_exists('auth/private/orders'))
