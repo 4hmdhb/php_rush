@@ -96,13 +96,15 @@
 			if (file_exists('private/products'))
 			{
 				$products = unserialize(file_get_contents('private/products'));
-				if (!$products)
-					return ;
-				foreach ($products as $elem) {
-						echo "<tr><th>".$elem['name']."</th>";
-						echo "<th>".$elem['category']."</th>";
-						echo "<th>".$elem['price']."</th>";
-						echo '<th><form method="POST" action=""><button class="btn danger"type="submit" name="del_prod" value="'.$elem['name'].'">Delete</button></form></th></tr>';
+				if ($products)
+				{
+					foreach ($products as $elem) {
+							echo "<tr><th>".$elem['name']."</th>";
+							echo "<th>".$elem['category']."</th>";
+							echo "<th>".$elem['price']."</th>";
+							echo '<th><form method="POST" action=""><button class="btn danger"type="submit" name="del_prod" value="'.$elem['name'].'">Delete</button></form></th></tr>';
+					
+					}
 				}
 			}
 		?>
